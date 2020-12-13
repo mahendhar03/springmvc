@@ -1,0 +1,127 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<bean name="handlerMapper" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/homepage.mvc">hc</prop>
+				<prop key="/book-order.mvc">poc</prop>
+			</props>
+		</property>
+		<property name="interceptors">
+			<list>
+				<ref bean="loggingInterceptor"/>
+			</list>
+		</property>
+	</bean> 
+	
+	<bean name="hc" class="com.mvc.controller.HomepageController"/>
+	
+	<bean name="loggingInterceptor" class="com.mvc.interceptors.LoggingInterceptor"/>
+	<!-- 
+	<bean name="oc" class="com.mvc.controller.OrderController">
+		<property name="commandClass" value="com.mvc.model.Order"/>
+	</bean> 
+	-->
+	
+	<bean name="poc" class="com.mvc.controller.OrdersController">
+		<property name="formView" value="book-order"/>
+		<property name="commandClass" value="com.mvc.model.internal.Order"/>
+		<property name="validator" ref="orderValidator"/>
+		<property name="commandName" value="order"/>
+		<property name="orderServiceInvoker" ref="orderServiceInvoker"/>
+		<property name="orderDataMapper" ref="orderDataMapper"/>
+	</bean>
+	
+	<bean name="orderValidator" class="com.mvc.validator.OrderValidator"/>
+	
+	<!-- bean name url handler mapper -->
+	<!-- 
+	<bean name="handlerMapper" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	<bean name="/homepage.mvc" class="com.mvc.controller.HomepageController"/>
+	 -->
+	 
+	<!-- controller class name handler mapper -->
+	<!-- 
+	<bean name="handlerMapper" class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+	<bean class="com.mvc.controller.HomepageController"/> 
+	-->
+	
+	<!-- controller bean name handler mapper -->
+	<!-- 
+	<bean name="handlerMapper" class="org.springframework.web.servlet.mvc.support.ControllerBeanNameHandlerMapping">
+		<property name="urlSuffix" value=".mvc"/>
+	</bean>
+	<bean name="homepage" class="com.mvc.controller.HomepageController"/> 
+	--> 
+	
+	<!-- ParameterizableViewController -->
+	<!-- <bean name="handlerMapper" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/homepage.mvc">hc</prop>
+			</props>
+		</property>
+	</bean> 
+	<bean name="hc" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="homepage"/>
+	</bean> -->
+	
+	<!-- UrlFilenameViewController -->
+	<!-- 
+	<bean name="handlerMapper" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/homepage.mvc">hc</prop>
+			</props>
+		</property>
+	</bean> 
+	<bean name="hc" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/> 
+	-->
+	
+	<!-- InternalResourceViewResolver -->
+	<!-- 
+	<bean name="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	 -->
+	
+	<!-- XmlViewResolver -->
+	<!-- 
+	<bean name="viewResolver" class="org.springframework.web.servlet.view.XmlViewResolver"/>
+	 -->
+	
+	<!-- BeanNameViewResolver -->
+	<!-- 
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+	<bean name="homepage" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/homepage.jsp"/>
+	</bean>
+	<bean name="book-order" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/book-order.jsp"/>
+	</bean>
+	<bean name="succes-order" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/succes-order.jsp"/>
+	</bean>
+	 -->
+	 
+	<!-- UrlBasedViewResolver -->
+	<!-- 
+	<bean name="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	 -->
+	 
+	 <!-- ResourceBundleViewResolver -->
+	 <bean name="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+	 	<property name="basename" value="views"/>
+	 </bean>
+	
+</beans>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans">
+	<bean id="book-order"
+		class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/book-order.jsp" />
+	</bean>
+	<bean id="homepage"
+		class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/homepage.jsp" />
+	</bean>
+	<bean id="succes-order"
+		class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/succes-order.jsp" />
+	</bean>
+</beans>
